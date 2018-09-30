@@ -11,7 +11,7 @@
     "replicas": 2,
     "selector": {
       "matchLabels": {
-        "image": "1.2"
+        "env": "qa"
       }
     },
     "strategy": {
@@ -24,7 +24,7 @@
     "template": {
       "metadata": {
         "labels": {
-          "image": "1.2"
+          "env": "qa"
         }
       },
       "spec": {
