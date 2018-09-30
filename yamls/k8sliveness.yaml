@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: k8sliveness
+   name: k8sliveness
 spec:
    replicas: 3,
    selector:
