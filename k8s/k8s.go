@@ -7,7 +7,6 @@ import (
 )
 
 var (
-	version  = "1.3-liveness"
 	bannedIp = "0.0.0.0"
 )
 
@@ -20,42 +19,52 @@ func getServerIP() string {
 	return conn.LocalAddr().(*net.UDPAddr).IP.String()
 }
 
-func playHome(w http.ResponseWriter, r *http.Request) {
-	status := "Customer Support, Mr. Cat speaking, how can I help you?"
-	img := "1.3.0"
-	if bannedIp == getServerIP() {
-		status = "I don't want to die Mr. Stark ( x_x ) ..."
-		img = "1.3.1"
+func getHTML(image string) string {
+	message := "Customer Support, Mr. Cat speaking, how can I help you?"
+	color := "orange"
+	if image == "1.3.1" {
+		message = "High five budy, I'm healthy as ever!"
+		color = "green"
 	}
-	html := `<!DOCTYPE html><html><body><center>
-		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/` + img + `.png">
-		<h1 style="color:green">Playing with Kubernetes</h1>
-		<h2 style="color:blue">Server IP ` + getServerIP() + `</h2>
-		<h3 style="color:blue">Version twogghub/k8s-workshop:` + version + `</h3>	
-		<h3 style="color:red">` + status + `</h3>	
-		</center></body></html>`
-	fmt.Fprintf(w, html)
+	if image == "1.3.2" {
+		message = "I don't want to die Mr. Stark ( x_x ) ..."
+		color = "red"
+	}
+	return `<!DOCTYPE html><html><body><center>
+			<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src` + image + `.png">
+			<h1 style="color:` + color + `">` + message + `</h3>	
+			<h2 style="color:green">Playing with Kubernetes</h1>
+			<h2 style="color:blue">Server IP ` + getServerIP() + `</h2>
+			<h3 style="color:blue">Version twogghub/k8s-workshop:1.3-liveness</h3>	
+			</center></body></html>`
+}
+
+func playHome(w http.ResponseWriter, r *http.Request) {
+	if getServerIP() == bannedIp {
+		fmt.Fprintf(w, getHTML("1.3.2"))
+	} else {
+		fmt.Fprintf(w, getHTML("1.3.0"))
+	}
 }
 
 func playHealth(w http.ResponseWriter, r *http.Request) {
-	ip := getServerIP()
-	if ip == bannedIp {
+	if getServerIP() == bannedIp {
 		w.WriteHeader(http.StatusServiceUnavailable)
 	} else {
-		fmt.Fprintf(w, "I'm alive!.. but also dead for IP: "+bannedIp)
+		fmt.Fprintf(w, getHTML("1.3.1"))
 	}
 }
 
-func playDead(w http.ResponseWriter, r *http.Request) {
-	bannedIp = r.URL.Query().Get("ip")
-	fmt.Fprintf(w, "Now playing dead for IP: "+bannedIp)
+func playKillMe(w http.ResponseWriter, r *http.Request) {
+	bannedIp = getServerIP()
+	fmt.Fprintf(w, getHTML("1.3.2"))
 }
 
 func main() {
 	http.HandleFunc("/", playHome)
 	http.HandleFunc("/health", playHealth)
-	http.HandleFunc("/kill", playDead)
-	if err := http.ListenAndServe(":9090", nil); err != nil {
+	http.HandleFunc("/killme", playKillMe)
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}
 }
