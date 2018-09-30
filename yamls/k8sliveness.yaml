@@ -8,7 +8,7 @@ spec:
    template:  
       metadata:  
          labels:  
-            app:k8sliveness
+            app: k8sliveness
   containers:
     - image: twogghub/k8s-workshop:1.3-liveness
       name: k8sliveness
