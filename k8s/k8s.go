@@ -8,14 +8,7 @@ import (
 
 var (
 	version  = "1.0"
-	bannedIp = "9"
-	html     = `<!DOCTYPE html><html><body><center>
-		<img src="https://raw.githubusercontent.com/twogg-git/k8s-intro/master/kubernetes_katacoda.png">
-		<h1 style="color:green">Playing with Kubernetes</h1>
-		<h2 style="color:blue">Your server IP:` + getServerIP() + `</h2>
-		<h3 style="color:blue">Version: twogghub/k8s-workshop:` + version + `</h3>	
-		<h3 style="color:red">Banned IP ending number: ` + bannedIp + `</h3>	
-		</center></body></html>`
+	bannedIp = "0.0.0.0"
 )
 
 func getServerIP() string {
@@ -28,21 +21,38 @@ func getServerIP() string {
 }
 
 func playHome(w http.ResponseWriter, r *http.Request) {
+	html := `<!DOCTYPE html><html><body><center>
+		<img src="https://raw.githubusercontent.com/twogg-git/k8s-intro/master/kubernetes_katacoda.png">
+		<h1 style="color:green">Playing with Kubernetes</h1>
+		<h2 style="color:blue">Your server IP:` + getServerIP() + `</h2>
+		<h3 style="color:blue">Version: twogghub/k8s-workshop:` + version + `</h3>	
+		<h3 style="color:red">Banned IP: ` + bannedIp + `</h3>	
+		</center></body></html>`
 	fmt.Fprintf(w, html)
 }
 
-func playWithIP(w http.ResponseWriter, r *http.Request) {
+func playHealth(w http.ResponseWriter, r *http.Request) {
 	ip := getServerIP()
-	if ip[len(ip)-1:] == bannedIp {
+	if ip == bannedIp {
 		w.WriteHeader(http.StatusInternalServerError)
 	} else {
-		fmt.Fprintf(w, "Play cool, I'm alive!!!")
+		fmt.Fprintf(w, "I'm alive!.. but also dead for IP: "+bannedIp)
 	}
 }
 
+func playDead(w http.ResponseWriter, r *http.Request) {
+	bannedIp = r.URL.Query().Get("ip")
+	fmt.Fprintf(w, "Now playing dead for IP: "+bannedIp)
+}
+
+/*func getBannedIP() string {
+	return bannedIp
+}*/
+
 func main() {
 	http.HandleFunc("/", playHome)
-	http.HandleFunc("/status", playWithIP)
+	http.HandleFunc("/health", playHealth)
+	http.HandleFunc("/kill", playDead)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}
