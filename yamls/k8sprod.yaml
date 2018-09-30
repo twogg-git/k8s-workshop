@@ -2,10 +2,20 @@
   "apiVersion": "extensions/v1beta1",
   "kind": "Deployment",
   "metadata": {
-    "name": "k8sdp"
+    "name": "k8sprod",
+    "labels": {
+      "env": "prod"
+    }
   },
   "spec": {
-    "replicas": 1,
+    "replicas": 3,
+    "strategy": {
+      "type": "RollingUpdate",
+      "rollingUpdate": {
+        "maxSurge": 1,
+        "maxUnavailable": 1
+      }
+    },
     "template": {
       "metadata": {
         "labels": {
@@ -16,7 +26,7 @@
         "containers": [
           {
             "name": "k8sdp",
-            "image": "twogghub/k8s-workshop:1.1-rolling",
+            "image": "twogghub/k8s-workshop:1.2-yaml",
             "ports": [
               {
                 "containerPort": 8080
