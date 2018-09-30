@@ -6,7 +6,7 @@
       "name":"k8sliveness"
    },
    "spec":{  
-      "replicas":10,
+      "replicas":3,
       "template":{  
          "metadata":{  
             "labels":{  
@@ -23,7 +23,8 @@
                         "path":"/health",
                         "port":8080
                      },
-                     "initialDelaySeconds":15
+                     "initialDelaySeconds":1
+                     "periodSecnds": 3
                   },
                   "ports":[  
                      {  
