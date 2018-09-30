@@ -28,7 +28,7 @@ spec:
               port: 8080
             initialDelaySeconds: 5
             timeoutSeconds: 1
-            periodSeconds: 5
+            periodSeconds: 2
             failureThreshold: 1
           ports:
           - name: http

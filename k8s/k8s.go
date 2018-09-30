@@ -19,31 +19,34 @@ func getServerIP() string {
 	return conn.LocalAddr().(*net.UDPAddr).IP.String()
 }
 
-func getHTML(image string) string {
-	message := "TechSupport, Mr. Cat speaking, how can I help you?"
+func getHTML(status string) string {
+	message := "DevOps, Mr. Cat speaking, how can I help you?"
+	image := "1.3.0"
 	color := "orange"
-	if image == "1.3.1" {
+	if status == "alive" {
 		message = "High five budy, I'm healthy as ever!"
+		image = "1.3.1"
 		color = "green"
 	}
-	if image == "1.3.2" {
-		message = "I don't want to die Mr. Stark ( x_x ) ..."
+	if status == "dead" {
+		message = "I don't want to die Mr. Stark..."
+		image = "1.3.2"
 		color = "red"
 	}
 	return `<!DOCTYPE html><html><body><center>
-			<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/` + image + `.png">
-			<h1 style="color:` + color + `">` + message + `</h3>	
-			<h2 style="color:green">Playing with Kubernetes</h1>
-			<h2 style="color:blue">Server IP ` + getServerIP() + `</h2>
-			<h3 style="color:blue">Version twogghub/k8s-workshop:1.3-liveness</h3>	
-			</center></body></html>`
+	<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/1.3-liveness/src/` + image + `.png">
+	<h1 style="color:` + color + `">` + message + `</h3>	
+	<h2 style="color:green">Playing with Kubernetes</h1>
+	<h2 style="color:blue">Server IP ` + getServerIP() + `</h2>
+	<h3 style="color:blue">Version twogghub/k8s-workshop:1.3-liveness</h3>	
+	</center></body></html>`
 }
 
 func playHome(w http.ResponseWriter, r *http.Request) {
-	if getServerIP() == bannedIp {
-		fmt.Fprintf(w, getHTML("1.3.2"))
+	if bannedIp == getServerIP() {
+		fmt.Fprintf(w, getHTML("dead"))
 	} else {
-		fmt.Fprintf(w, getHTML("1.3.0"))
+		fmt.Fprintf(w, getHTML("home"))
 	}
 }
 
@@ -51,13 +54,13 @@ func playHealth(w http.ResponseWriter, r *http.Request) {
 	if getServerIP() == bannedIp {
 		w.WriteHeader(http.StatusServiceUnavailable)
 	} else {
-		fmt.Fprintf(w, getHTML("1.3.1"))
+		fmt.Fprintf(w, getHTML("alive"))
 	}
 }
 
 func playKillMe(w http.ResponseWriter, r *http.Request) {
 	bannedIp = getServerIP()
-	fmt.Fprintf(w, getHTML("1.3.2"))
+	fmt.Fprintf(w, getHTML("dead"))
 }
 
 func main() {
