@@ -2,10 +2,12 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
    name: k8sliveness
+   labels:
+      env: prod  
 spec:
    replicas: 3
    selector:
-      matchlabels:
+      matchLabels:
          env: prod
    strategy:
       type: RollingUpdate
