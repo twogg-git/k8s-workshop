@@ -1,9 +1,8 @@
 
-apiVersion: extensions/v1beta1
+apiVersion: v1
 kind: Deployment
 metadata:
    annotations:
-      deployment.kubernetes.io/revision: "1"
       name: k8sliveness
       labels:
          env: prod
