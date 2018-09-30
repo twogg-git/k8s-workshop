@@ -13,6 +13,8 @@ spec:
     matchLabels:
       env: k8sdp
   template:  
+    annotations:
+      kubernetes.io/change-cause: "/health return error!" 
     metadata:  
       labels:  
         env: k8sdp
