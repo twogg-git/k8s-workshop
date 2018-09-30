@@ -17,17 +17,17 @@ func getServerIP() string {
 
 func playHome(w http.ResponseWriter, r *http.Request) {
 	html := `<!DOCTYPE html><html><body><center>
-		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/1.2.png">
-		<h1 style="color:green">Playing with Kubernetes</h1>
-		<h2 style="color:blue">Your server IP:` + getServerIP() + `</h2>
-		<h3 style="color:blue">Version: twogghub/k8s-workshop:1.2-yaml</h3>	
+		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/1.2.1.png">
+		<h1 style="color:red">Playing with Kubernetes</h1>
+		<h2 style="color:red">Your server IP ` + getServerIP() + ` :9090</h2>
+		<h3 style="color:red">Version twogghub/k8s-workshop:1.2-qaonly</h3>	
 		</center></body></html>`
 	fmt.Fprintf(w, html)
 }
 
 func main() {
 	http.HandleFunc("/", playHome)
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":9090", nil); err != nil {
 		panic(err)
 	}
 }
