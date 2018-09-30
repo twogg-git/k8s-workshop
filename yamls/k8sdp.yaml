@@ -13,11 +13,11 @@ spec:
     matchLabels:
       env: k8sdp
   template:  
-    annotations:
-      kubernetes.io/change-cause: "/health return error!" 
     metadata:  
       labels:  
         env: k8sdp
+      annotations:
+        kubernetes.io/change-cause: "HttpGet /health return error!" 
     spec:
       containers:
         - image: twogghub/k8s-workshop:1.3-liveness
