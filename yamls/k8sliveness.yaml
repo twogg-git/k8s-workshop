@@ -26,8 +26,8 @@ spec:
               port: 9090
             initialDelaySeconds: 5
             timeoutSeconds: 1
-            periodSeconds: 10
-            failureThreshold: 3
+            periodSeconds: 5
+            failureThreshold: 1
           ports:
           - name: http
             containerPort: 9090
