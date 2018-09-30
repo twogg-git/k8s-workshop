@@ -7,9 +7,8 @@ import (
 
 func playHome(w http.ResponseWriter, r *http.Request) {
 	html := `<!DOCTYPE html><html><body><center>
-		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/1.0.png">
+		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/0.0.png">
 		<h1 style="color:green">Playing with Kubernetes</h1>
-		<h3 style="color:blue">Version: twogghub/k8s-workshop:1.0-baby</h3>	
 		</center></body></html>`
 	fmt.Fprintf(w, html)
 }
