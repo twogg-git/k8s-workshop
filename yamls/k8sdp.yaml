@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: k8sdp
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      env: k8sdp
+  template:  
+    metadata:  
+      labels:  
+        env: k8sdp
+      annotations:
+        kubernetes.io/change-cause: "HttpGet /health return error!" 
+    spec:
+      containers:
+        - image: twogghub/k8s-workshop:1.3-liveness
+          name: k8sdp
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 2
+            failureThreshold: 1
+          ports:
+          - name: http
+            containerPort: 8080
