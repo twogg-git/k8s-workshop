@@ -25,7 +25,7 @@
       "spec": {
         "containers": [
           {
-            "name": "k8sdp",
+            "name": "k8sprod",
             "image": "twogghub/k8s-workshop:1.2-yaml",
             "ports": [
               {
