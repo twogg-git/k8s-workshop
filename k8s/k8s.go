@@ -21,12 +21,19 @@ func getServerIP() string {
 }
 
 func playHome(w http.ResponseWriter, r *http.Request) {
+	bannedIp = r.URL.Query().Get("ip")
+	status := "Customer Support, Mr. Cat speaking, how can I help you!"
+	img := "1.3.0"
+	if bannedIp == getServerIP() {
+		status = "I don't want to die Mr. Stark ( x_x ) ..."
+		img = "1.3.1"
+	}
 	html := `<!DOCTYPE html><html><body><center>
-		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/1.3.png">
+		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/` + img + `.png">
 		<h1 style="color:green">Playing with Kubernetes</h1>
 		<h2 style="color:blue">Your server IP:` + getServerIP() + `</h2>
 		<h3 style="color:blue">Version: twogghub/k8s-workshop:` + version + `</h3>	
-		<h3 style="color:red">Banned IP: ` + bannedIp + `</h3>	
+		<h3 style="color:red">` + status + `</h3>	
 		</center></body></html>`
 	fmt.Fprintf(w, html)
 }
@@ -34,7 +41,7 @@ func playHome(w http.ResponseWriter, r *http.Request) {
 func playHealth(w http.ResponseWriter, r *http.Request) {
 	ip := getServerIP()
 	if ip == bannedIp {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusServiceUnavailable)
 	} else {
 		fmt.Fprintf(w, "I'm alive!.. but also dead for IP: "+bannedIp)
 	}
@@ -48,7 +55,6 @@ func playDead(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", playHome)
 	http.HandleFunc("/health", playHealth)
-	http.HandleFunc("/kill", playDead)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}

@@ -1,0 +1,38 @@
+
+{  
+   "apiVersion":"extensions/v1beta1",
+   "kind":"Deployment",
+   "metadata":{  
+      "name":"k8sliveness"
+   },
+   "spec":{  
+      "replicas":10,
+      "template":{  
+         "metadata":{  
+            "labels":{  
+               "app":"k8sliveness"
+            }
+         },
+         "spec":{  
+            "containers":[  
+               {  
+                  "name":"k8sliveness",
+                  "image":"twogghub/k8s-workshop:1.3-liveness",
+                  "livenessProbe":{  
+                     "httpGet":{  
+                        "path":"/health",
+                        "port":8080
+                     },
+                     "initialDelaySeconds":15
+                  },
+                  "ports":[  
+                     {  
+                        "containerPort":8080
+                     }
+                  ]
+               }
+            ]
+         }
+      }
+   }
+}
