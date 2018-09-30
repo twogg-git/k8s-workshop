@@ -1,33 +1,33 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-   name: k8sliveness
+  name: k8sliveness
 spec:
-   replicas: 3
-   strategy:
-      type: RollingUpdate
-      rollingUpdate:
-         maxSurge: 1
-         maxUnavailable: 1
-   selector:
-      matchLabels:
-         env: prod
-   template:  
-      metadata:  
-         labels:  
-            env: prod
-      spec:
-         containers:
-         -  image: twogghub/k8s-workshop:1.3-liveness
-            name: k8sliveness
-            livenessProbe:
-               httpGet:
-                  path: /healthy
-                  port: 9090
-               initialDelaySeconds: 5
-               timeoutSeconds: 1
-               periodSeconds: 10
-               failureThreshold: 3
-            ports:
-            -  name: http
-               containerPort: 9090
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      env: prod
+  template:  
+    metadata:  
+      labels:  
+        env: prod
+    spec:
+      containers:
+        - image: twogghub/k8s-workshop:1.3-liveness
+          name: k8sliveness
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: 9090
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            failureThreshold: 3
+          ports:
+          - name: http
+            containerPort: 9090
