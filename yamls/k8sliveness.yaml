@@ -24,7 +24,7 @@
                         "port":8080
                      },
                      "initialDelaySeconds":1,
-                     "periodSecnds": 3
+                     "periodSeconds": 3
                   },
                   "ports":[  
                      {  
