@@ -8,5 +8,5 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=builder /go/src/k8s-workshop/k8s .
 
-EXPOSE 8080
+EXPOSE 9090
 ENTRYPOINT ./k8s

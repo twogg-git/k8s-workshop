@@ -31,7 +31,7 @@ func playHome(w http.ResponseWriter, r *http.Request) {
 	html := `<!DOCTYPE html><html><body><center>
 		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/` + img + `.png">
 		<h1 style="color:green">Playing with Kubernetes</h1>
-		<h2 style="color:blue">Your server IP:` + getServerIP() + `</h2>
+		<h2 style="color:blue">Your server IP:` + getServerIP() + `9090</h2>
 		<h3 style="color:blue">Version: twogghub/k8s-workshop:` + version + `</h3>	
 		<h3 style="color:red">` + status + `</h3>	
 		</center></body></html>`
@@ -55,7 +55,7 @@ func playDead(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", playHome)
 	http.HandleFunc("/health", playHealth)
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":9090", nil); err != nil {
 		panic(err)
 	}
 }
