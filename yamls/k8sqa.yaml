@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: k8sqa
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  template:  
+    metadata:  
+      labels:  
+        env: qa
+    spec:
+      containers:
+        - image: twogghub/k8s-workshop:1.2-qaonly
+          name: k8sqa
+          ports:
+          - name: http
+            containerPort: 9090
