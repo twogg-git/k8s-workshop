@@ -17,10 +17,10 @@ func getServerIP() string {
 
 func playHome(w http.ResponseWriter, r *http.Request) {
 	html := `<!DOCTYPE html><html><body><center>
-		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/1.1.2.png">
-		<h1 style="color:orange">Playing with Kubernetes</h1>
-    		<h2 style="color:orange">Server IP ` + getServerIP() + `</h2>
-		<h3 style="color:orange">Version twogghub/k8s-workshop:1.1-rolling</h3>	
+		<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/1.1.png">
+		<h1 style="color:green">Playing with Kubernetes</h1>
+    		<h2 style="color:blue">Server IP ` + getServerIP() + `</h2>
+		<h3 style="color:blue">Version twogghub/k8s-workshop:1.1-rolling</h3>	
 		</center></body></html>`
 	fmt.Fprintf(w, html)
 }
