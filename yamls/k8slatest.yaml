@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: k8slatest
+spec:
+  replicas: 2
+  template:  
+    metadata:  
+      labels:  
+        env: k8slatest
+    spec:
+      containers:
+        - image: twogghub/k8s-workshop:1.1-rolling
+          imagePullPolicy: Always
+          name: k8slatest
+          ports:
+          - name: http
+            containerPort: 8080
