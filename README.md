@@ -14,7 +14,7 @@ Todos los recursos utlizados hacen parte del repositiorio y los mencionare a med
 
 ## 1.1. Desplegar una muy sencilla pagina web
 
-Docker play ground para crear y ejecutar la imagen: https://labs.play-with-docker.com/   
+Docker play ground para crear y ejecutar la imagen: https://www.katacoda.com/courses/docker/persisting-data-using-volumes   
 
 - Comandos basicos de consulta:
 
