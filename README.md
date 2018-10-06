@@ -14,12 +14,13 @@ Todos los recursos utilizados hacen parte del repositorio y los mencionare a med
 
 Los conceptos de Kubernetes a manejar y de Docker esta en los siguientes slides, este repositorio es la base para los ejercicios explicados en los slides.
 
+`https://github.com/twogg-git/talks/blob/master/Kubernetes_DuraznoConf.pdf`
 
 # 1. Docker
 
 ## 1.1. Desplegar una muy sencilla pagina web
 
-Docker play ground para crear y ejecutar la imagen: 
+Docker play ground para crear y ejecutar la imagen:    
 https://www.katacoda.com/courses/docker/persisting-data-using-volumes   
 
 - Ejecutar el primer contenedor
