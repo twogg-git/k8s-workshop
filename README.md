@@ -1,33 +1,36 @@
 # Taller Práctico de Kubernetes 
 
-Taller revisara los conceptos claves al momento de realizar despliegues con Kubernetes, sus objetos, los comandos mas usados, los trucos, también incluye un repaso Docker y Docker Registry. 
+<img height="300" width="500" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/kubernetes.png">
 
-Todos los recursos utlizados hacen parte del repositiorio y los mencionare a medida que los usemos. Este taller esta pensado para que al final cuentes con tu repositorio de images de docker deplegadas en kubernetes, asi que en lo posible no te saltes la parte de Docker.
+
+Trabajaremos los conceptos claves al momento de realizar despliegues con Kubernetes, sus objetos, los comandos mas usados, los trucos, y también incluye un repaso de Docker y Docker Registry. 
+
+Todos los recursos utilizados hacen parte del repositorio y los mencionare a medida que los usemos. Este taller esta pensado para que al final cuentes con tu repositorio de images de docker desplegadas en kubernetes, asi que en lo posible no te saltes la parte de Docker.
 
 ## Recursos a utilizar
 - https://github.com/
 - https://hub.docker.com/
 - https://www.katacoda.com/
-- https://labs.play-with-docker.com/ 
+
+## Slides taller
+
+Los conceptos de Kubernetes a manejar y de Docker esta en los siguientes slides, este repositorio es la base para los ejercicios explicados en los slides.
+
 
 # 1. Docker
 
 ## 1.1. Desplegar una muy sencilla pagina web
 
-Docker play ground para crear y ejecutar la imagen: https://www.katacoda.com/courses/docker/persisting-data-using-volumes   
+Docker play ground para crear y ejecutar la imagen: 
+https://www.katacoda.com/courses/docker/persisting-data-using-volumes   
 
-- Comandos basicos de consulta:
-
+- Ejecutar el primer contenedor
 ```sh 
-docker images
-
-docker container ls -a
-
-docker container run --rm -p 80:80 --name nginx nginx:1.8-alpine
+docker container run --rm -d -p 80:80 --name nginx nginx:1.8-alpine
 ``` 
 
-- Creacion de los archivos recuerso:
-```sh 
+- Creando archivos recursos para cargar nuestra propia pagina
+```sh
 mkdir website
 
 cd website
@@ -35,9 +38,8 @@ cd website
 vim index.html
 ```
 
-Codigo fuente en ejecucion de la pagina HTML: [index.html](https://github.com/twogg-git/k8s-workshop/blob/1.0-baby/docker/website/index.html)
-
-```sh
+- Contenido HTML pagina web
+``` sh
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,48 +50,74 @@ Codigo fuente en ejecucion de la pagina HTML: [index.html](https://github.com/tw
   <h1 style="color:blue">Baby steps with docker!</h1>   
 </center></body>
 </html>
-```
+``` 
 
-- Ejecucion contenedores Nginx & Httpd   
-```sh 
-docker container run --rm -p 80:80 --name nginx -v /root/website:/usr/share/nginx/html nginx:1.8-alpine
+- Cargar nuestra pagina con dos tipos de servidores: Nginx y Httpd
+``` sh
+docker container run --rm -d -p 80:80 --name nginx -v /root/website:/usr/share/nginx/html nginx:1.8-alpine
 
-docker container run --rm -dit -p 8080:80 --name httpd -v /root/website/:/usr/local/apache2/htdocs/ httpd:2.4-alpine
-```
+docker container run --rm -d -p 8080:80 --name httpd -v /root/website/:/usr/local/apache2/htdocs/ httpd:2.4-alpine
+``` 
 
-Dockerfile para la creacion de la imagen para httpd: [Dockerfile](https://github.com/twogg-git/k8s-workshop/blob/1.0-baby/docker/Dockerfile)
+- Crear archivo Dockerfile
+``` sh
+cd ..
 
-```sh
+vim Dockerfile
+``` 
+
+- Contenido archivo para construir nuestra imagen
+``` sh
 FROM httpd:2.4-alpine
 
 ADD website/ /usr/local/apache2/htdocs/
 
 EXPOSE 80
-```
+``` sh
 
-- Creacion de un archivo Dockerfile y ejecucion del contenedor 
-```sh 
-cd ..
-
-vim Dockerfile
-
+- Construir archivo Dockerfile y ejecutar el contenedor
+``` sh 
 docker build -t httpd .
 
 docker container run --rm -p 80:80 --name httpd httpd
-
-``` 
+```
 
 ## 1.2. Repositorios en GitHub
 
 ```sh
 https://github.com/
 ```
+Repositorios para el codigo fuente, yaml, y Dockerfile, tambien lo usaremos para construir imagenes en DockerHub.      
+![](https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/github_signup.png)
+
+- Ahora a crear los repositorios de las dos imagenes, Go y Httpd   
+<img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/new_repo.png">
+
+- Tener en cuenta el nombre del repositorio lo usaremos luego!, tambien agregar el archivo readme   
+<img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/new_repo2.png">
+
+- Repositorio *Httpd*, archivos Dockerfile y website-index.html. Los fuentes a crear esta en los siguientes links:     
+```sh
+https://repl.it/@twogg_git/index   
+https://repl.it/@twogg_git/DockerHttpd   
+```
+<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/repo_files_html.png">
+
+- Repositorio *Go*, archivos Dockerfile y k8s.go 
+```sh
+https://repl.it/@twogg_git/k8s-10   
+https://repl.it/@twogg_git/DockerGO 
+```
+<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/repo_files_go.png">
 
 ## 1.3. Docker Registry
 
 ```sh
 https://hub.docker.com/
 ```
+Este es el repositorio para las imagenes Docker que vamos a crear.
+![](https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/dockerhub_signup.png)
+
 
 ## 1.4. Usando nuestras imagenes 
 
@@ -99,9 +127,9 @@ https://www.katacoda.com/courses/kubernetes/launch-single-node-cluster
 
 # 2. Kubernetes
 
-## 2.1. Comandos basicos 
+## 2.1. Comandos básicos 
 
-Codigo fuente en ejecucion de la pagina HTML: [index.html](https://github.com/twogg-git/k8s-workshop/blob/1.0-baby/docker/website/index.html)
+Codigo fuente en ejecución de la pagina HTML: [index.html](https://github.com/twogg-git/k8s-workshop/blob/1.0-baby/docker/website/index.html)
 
 Katacoda Minikube playground: https://www.katacoda.com/courses/kubernetes/launch-single-node-cluster#
 
@@ -315,4 +343,5 @@ kubectl rollout undo deployment/k8sdp
 kubectl rollout history deployments k8sdp
 
 kubectl delete pods,services,deployments,replicaset --all
+
 ```
