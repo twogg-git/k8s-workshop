@@ -129,10 +129,10 @@ Este es el repositorio para las imagenes Docker que vamos a crear.
 <img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/build_settings.png">
 
 - Revisamos que se construya la imagen en *Build Details*. 
-<img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/build_details.png">
+<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/build_details.png">
 
 - El tag de nuestra imagen. 
-<img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/build_details.png">
+<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/tags.png">
 
 # 2. Kubernetes
 
