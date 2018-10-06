@@ -1,4 +1,5 @@
 # Taller Práctico de Kubernetes 
+<img height="300" width="500" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/kubernetes.png">
 
 Trabajaremos los conceptos claves al momento de realizar despliegues con Kubernetes, sus objetos, los comandos mas usados, los trucos, y también incluye un repaso de Docker y Docker Registry. 
 
@@ -132,9 +133,6 @@ Este es el repositorio para las imagenes Docker que vamos a crear.
 
 - El tag de nuestra imagen. 
 <img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/build_details.png">
-
-- Finalmente pull de la imagen como lo muestra la primera opcion de *Repo Info*.
-
 
 # 2. Kubernetes
 
