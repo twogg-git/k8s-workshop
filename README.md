@@ -1,6 +1,6 @@
 # Taller Práctico de Kubernetes 
 
-<img height="300" width="500" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/kubernetes.png">
+<img height="300" width="500" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/kubernetes.png">
 
 
 Trabajaremos los conceptos claves al momento de realizar despliegues con Kubernetes, sus objetos, los comandos mas usados, los trucos, y también incluye un repaso de Docker y Docker Registry. 
@@ -94,7 +94,7 @@ Repositorios para el codigo fuente, yaml, y Dockerfile, tambien lo usaremos para
 <img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/new_repo.png">
 
 - Tener en cuenta el nombre del repositorio lo usaremos luego!, tambien agregar el archivo readme   
-<img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/new_repo2.png">
+<img height="190" width="150" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/new_repo2.png">
 
 - Repositorio *Httpd*, archivos Dockerfile y website-index.html. Los fuentes a crear esta en los siguientes links:     
 ```sh
@@ -118,12 +118,26 @@ https://hub.docker.com/
 Este es el repositorio para las imagenes Docker que vamos a crear.
 ![](https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/dockerhub_signup.png)
 
+- Ahora a crear nuestra construccion automatizada, *este paso para ambos repositorios de GitHub Go y Httpd   
+<img height="190" width="150" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/hub_new_repo.png">
 
-## 1.4. Usando nuestras imagenes 
+- Ahora a crear nuestra construccion automatizada, *este paso para ambos repositorios Go y Httpd   
+<img height="190" width="150" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/hub_new_repo.png">
 
-```sh
-https://www.katacoda.com/courses/kubernetes/launch-single-node-cluster
-```
+- Seleccionar repo tipo GitHub y luego buscar el que vamos a crear, ahora agregar la descripcion y crear 
+<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/aut_hub.png">
+
+- Ahora, en *Build Settings* damos una version a nuestra imagen ejemplo 1.0, luego click en save y al final click trigger. 
+<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/build_settings.png">
+
+- Revisamos que se construya la imagen en *Build Details*. 
+<img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/build_details.png">
+
+- El tag de nuestra imagen. 
+<img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/build_details.png">
+
+- Finalmente pull de la imagen como lo muestra la primera opcion de *Repo Info*.
+
 
 # 2. Kubernetes
 
