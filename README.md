@@ -12,9 +12,9 @@ Todos los recursos utilizados hacen parte del repositorio y los mencionare a med
 
 ## Slides taller
 
-Los conceptos de Kubernetes a manejar y de Docker esta en los siguientes slides, este repositorio es la base para los ejercicios explicados en los slides.
+Los conceptos de Kubernetes a manejar y de Docker esta en los siguientes slides, este repositorio es la base para los ejercicios explicados en los slides.   
 
-`https://github.com/twogg-git/talks/blob/master/Kubernetes_DuraznoConf.pdf`
+https://github.com/twogg-git/talks/blob/master/Kubernetes_DuraznoConf.pdf
 
 # 1. Docker
 
@@ -93,7 +93,7 @@ Repositorios para el codigo fuente, yaml, y Dockerfile, tambien lo usaremos para
 <img height="190" width="150" align="center" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/new_repo.png">
 
 - Tener en cuenta el nombre del repositorio lo usaremos luego!, tambien agregar el archivo readme   
-<img height="190" width="150" src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/new_repo2.png">
+<img src="https://raw.githubusercontent.com/twogg-git/k8s-workshop/master/src/new_repo2.png">
 
 - Repositorio *Httpd*, archivos Dockerfile y website-index.html. Los fuentes a crear esta en los siguientes links:     
 ```sh
